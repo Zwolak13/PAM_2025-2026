@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1060269595752",
+    "project_id": "zwolakdawid-b0090",
+    "storage_bucket": "zwolakdawid-b0090.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1060269595752:android:a51ab0a693642a28d82fdd",
+        "android_client_info": {
+          "package_name": "com.a160131_zwolak_dawid"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKJkbvb9Jp3FmtmlUxUwR8EQfXm-eXh_o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
