@@ -3,4 +3,21 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
+    <string name="logo_first_name">Dawid</string>
+    <string name="logo_last_name">Zwolak</string>
+    <string name="logo_index">160131</string>
+    <string name="login_register_button">Register</string>
+    <string name="register_title">Create account</string>
+    <string name="register_email_label">Email</string>
+    <string name="register_password_label">Password</string>
+    <string name="register_confirm_password_label">Confirm password</string>
+    <string name="register_accept_terms">I accept the terms and conditions</string>
+    <string name="register_button">Sign up</string>
+    <string name="register_back_to_login">Back to login</string>
+    <string name="error_invalid_email">Invalid email address</string>
+    <string name="error_invalid_password"> Password must have at least 6 characters </string>
+    <string name="error_passwords_not_match">Passwords do not match</string>
+    <string name="error_terms_not_accepted">You must accept the terms</string>
+    <string name="register_success">Registration successful</string>
+    <string name="register_error_generic">Registration error</string>
 </resources>
