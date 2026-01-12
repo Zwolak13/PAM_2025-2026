@@ -1,8 +1,12 @@
 package com.a160131_zwolak_dawid.components.Navigation
 
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.a160131_zwolak_dawid.components.Dashboard.DashboardScreen
 import com.a160131_zwolak_dawid.components.Login.LoginScreen
@@ -13,45 +17,82 @@ import com.google.firebase.auth.FirebaseAuth
 fun AppNavigation(auth: FirebaseAuth) {
     val navController = rememberNavController()
 
-    NavHost(
-        navController = navController,
-        startDestination = Routes.LOGIN
-    ) {
-        composable(Routes.LOGIN) {
-            LoginScreen(
-                auth = auth,
-                onLoginSuccess = {
-                    navController.navigate(Routes.DASHBOARD)
-                },
-                onRegisterClick = {
-                    navController.navigate(Routes.REGISTER)
-                }
-            )
-        }
+    val bottomNavRoutes = listOf(
+        BottomNavbarItem.Search.route,
+        BottomNavbarItem.Home.route,
+        BottomNavbarItem.Logout.route
+    )
 
-        composable(Routes.REGISTER) {
-            RegisterScreen(
-                auth = auth,
-                onRegisterSuccess = {
-                    navController.popBackStack()
-                },
-                onBackToLogin = {
-                    navController.popBackStack()
-                }
-            )
-        }
+    val navBackStackEntry = navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry.value?.destination?.route
 
-        composable(Routes.DASHBOARD) {
-            DashboardScreen (
-                auth = auth,
-                onLogout = {
+    val showBottomBar = currentRoute in bottomNavRoutes
+
+    val startDestination = if (auth.currentUser != null) {
+        BottomNavbarItem.Home.route
+    } else {
+        Routes.LOGIN
+    }
+
+    Scaffold(
+        bottomBar = {
+            if (showBottomBar) {
+                BottomNavBar(navController)
+            }
+        }
+    ) { padding ->
+        NavHost(
+            navController = navController,
+            startDestination = startDestination,
+            modifier = Modifier.padding(padding)
+        ) {
+            composable(Routes.LOGIN) {
+                LoginScreen(
+                    auth = auth,
+                    onLoginSuccess = {
+                        navController.navigate(BottomNavbarItem.Home.route) {
+                            popUpTo(Routes.LOGIN) { inclusive = true }
+                        }
+                    },
+                    onRegisterClick = {
+                        navController.navigate(Routes.REGISTER)
+                    }
+                )
+            }
+
+            composable(Routes.REGISTER) {
+                RegisterScreen(
+                    auth = auth,
+                    onRegisterSuccess = {
+                        navController.popBackStack()
+                    },
+                    onBackToLogin = {
+                        navController.popBackStack()
+                    }
+                )
+            }
+
+            composable(BottomNavbarItem.Home.route) {
+                DashboardScreen(auth = auth, onLogout = {
                     auth.signOut()
                     navController.navigate(Routes.LOGIN) {
-                        popUpTo(Routes.DASHBOARD) { inclusive = true }
+                        popUpTo(0) { inclusive = true }
                     }
-                }
-            )
-        }
 
+                })
+            }
+
+            composable(BottomNavbarItem.Search.route) {
+
+            }
+
+            composable(BottomNavbarItem.Logout.route) {
+                auth.signOut()
+                navController.navigate(Routes.LOGIN) {
+                    popUpTo(BottomNavbarItem.Home.route) { inclusive = true }
+                }
+            }
+        }
     }
 }
+
