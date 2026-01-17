@@ -3,6 +3,7 @@ package com.a160131_zwolak_dawid.components.Navigation
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 
 @Composable
 fun BottomNavBar(navController: NavHostController) {
@@ -12,9 +13,11 @@ fun BottomNavBar(navController: NavHostController) {
         BottomNavbarItem.Logout
     )
 
-    NavigationBar {
-        val currentRoute = navController.currentBackStackEntry?.destination?.route
+    val navBackStackEntryState = navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntryState.value?.destination?.route
 
+
+    NavigationBar {
         items.forEach { item ->
             NavigationBarItem(
                 selected = currentRoute == item.route,
@@ -31,3 +34,4 @@ fun BottomNavBar(navController: NavHostController) {
         }
     }
 }
+

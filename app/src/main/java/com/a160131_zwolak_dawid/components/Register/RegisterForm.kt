@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.a160131_zwolak_dawid.R
 import com.a160131_zwolak_dawid.components.Layout.showToast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthException
 
 @Composable
 fun RegisterForm(
@@ -86,35 +87,7 @@ fun RegisterForm(
 
         Button(
             onClick = {
-                if (!email.contains("@") || !email.contains(".")) {
-                    showToast(context,context.getString(R.string.error_invalid_email))
-                    return@Button
-                }
 
-                if (password.length < 6) {
-                    showToast(context,context.getString(R.string.error_invalid_password))
-                    return@Button
-                }
-
-                if (password != confirmPassword) {
-                    showToast(context,context.getString(R.string.error_passwords_not_match))
-                    return@Button
-                }
-
-                if (!acceptTerms) {
-                    showToast(context,context.getString(R.string.error_terms_not_accepted))
-                    return@Button
-                }
-
-                auth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            showToast(context,context.getString(R.string.register_success))
-                            onRegisterSuccess()
-                        } else {
-                            showToast(context,task.exception?.message ?: context.getString(R.string.register_error_generic))
-                        }
-                    }
             },
             modifier = Modifier.fillMaxWidth()
         ) {

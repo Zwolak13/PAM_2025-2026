@@ -14,10 +14,31 @@
     <string name="register_accept_terms">I accept the terms and conditions</string>
     <string name="register_button">Sign up</string>
     <string name="register_back_to_login">Back to login</string>
-    <string name="error_invalid_email">Invalid email address</string>
     <string name="error_invalid_password"> Password must have at least 6 characters </string>
     <string name="error_passwords_not_match">Passwords do not match</string>
     <string name="error_terms_not_accepted">You must accept the terms</string>
     <string name="register_success">Registration successful</string>
     <string name="register_error_generic">Registration error</string>
+
+    <string name="error_invalid_email">Invalid email address</string>
+    <string name="error_email_in_use">This email address is already in use</string>
+    <string name="error_weak_password">Password is too weak (minimum 6 characters)</string>
+    <string name="error_wrong_password">Incorrect password</string>
+    <string name="error_user_not_found">No account found with this email address</string>
+    <string name="error_user_disabled">This account has been disabled</string>
+    <string name="error_too_many_requests">Too many attempts. Please try again later</string>
+    <string name="error_operation_not_allowed">This sign-in method is disabled</string>
+    <string name="error_network">No internet connection</string>
+    <string name="error_timeout">Request timed out. Please try again</string>
+    <string name="error_credential_already_in_use">
+    This account is already linked to another sign-in method
+</string>
+    <string name="error_account_exists_with_different_credential">
+    An account already exists with this email using a different sign-in method
+</string>
+    <string name="error_generic">An unexpected error occurred</string>
+
+    <string name="no_exercises">No exercises found</string>
+    <string name="muscle_label">Muscles:</string>
+    <string name="difficulty_label">Difficulty:</string>
 </resources>

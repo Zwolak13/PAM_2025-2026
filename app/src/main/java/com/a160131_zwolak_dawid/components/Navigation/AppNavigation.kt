@@ -9,6 +9,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.a160131_zwolak_dawid.components.Dashboard.DashboardScreen
+import com.a160131_zwolak_dawid.components.Dashboard.SearchScreen
+
+
 import com.a160131_zwolak_dawid.components.Login.LoginScreen
 import com.a160131_zwolak_dawid.screens.RegisterScreen
 import com.google.firebase.auth.FirebaseAuth
@@ -83,7 +86,7 @@ fun AppNavigation(auth: FirebaseAuth) {
             }
 
             composable(BottomNavbarItem.Search.route) {
-
+                SearchScreen()
             }
 
             composable(BottomNavbarItem.Logout.route) {

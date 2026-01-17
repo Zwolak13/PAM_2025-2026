@@ -11,6 +11,7 @@ import androidx.compose.ui.unit.dp
 import com.a160131_zwolak_dawid.R
 import com.a160131_zwolak_dawid.components.Layout.showToast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthException
 
 @Composable
 fun LoginForm(
@@ -55,8 +56,23 @@ fun LoginForm(
                         if (task.isSuccessful) {
                             onLoginSuccess()
                         } else {
-                            showToast(context, task.exception?.message ?: context.getString(R.string.register_error_generic))
+                            val message = when (val e = task.exception) {
+                                is FirebaseAuthException -> {
+                                    when (e.errorCode) {
+                                        "ERROR_INVALID_EMAIL" -> context.getString(R.string.error_invalid_email)
+                                        "ERROR_WRONG_PASSWORD" -> context.getString(R.string.error_wrong_password)
+                                        "ERROR_USER_NOT_FOUND" -> context.getString(R.string.error_user_not_found)
+                                        "ERROR_TOO_MANY_REQUESTS" -> context.getString(R.string.error_too_many_requests)
+                                        "ERROR_NETWORK_REQUEST_FAILED" -> context.getString(R.string.error_network)
+                                        else -> context.getString(R.string.error_generic)
+                                    }
+                                }
+                                else -> context.getString(R.string.error_generic)
+                            }
+
+                            showToast(context, message)
                         }
+
                     }
             },
             modifier = Modifier.fillMaxWidth()
