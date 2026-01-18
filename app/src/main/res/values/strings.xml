@@ -19,7 +19,6 @@
     <string name="error_terms_not_accepted">You must accept the terms</string>
     <string name="register_success">Registration successful</string>
     <string name="register_error_generic">Registration error</string>
-
     <string name="error_invalid_email">Invalid email address</string>
     <string name="error_email_in_use">This email address is already in use</string>
     <string name="error_weak_password">Password is too weak (minimum 6 characters)</string>
@@ -30,15 +29,45 @@
     <string name="error_operation_not_allowed">This sign-in method is disabled</string>
     <string name="error_network">No internet connection</string>
     <string name="error_timeout">Request timed out. Please try again</string>
-    <string name="error_credential_already_in_use">
-    This account is already linked to another sign-in method
-</string>
-    <string name="error_account_exists_with_different_credential">
-    An account already exists with this email using a different sign-in method
-</string>
+    <string name="error_credential_already_in_use">This account is already linked to another sign-in method</string>
+    <string name="error_account_exists_with_different_credential">An account already exists with this email using a different sign-in method</string>
     <string name="error_generic">An unexpected error occurred</string>
-
     <string name="no_exercises">No exercises found</string>
     <string name="muscle_label">Muscles:</string>
     <string name="difficulty_label">Difficulty:</string>
+    <string name="add_to_workout_set_title">Add to workout set</string>
+    <string name="exercise_added">Exercise added to set</string>
+    <string name="failed_add_exercise">Failed to add exercise</string>
+    <string name="created_and_added">Workout set created and exercise added</string>
+    <string name="failed_create_set">Failed to create workout set</string>
+    <string name="no_workout_sets">No workout sets found. Create a new one below.</string>
+    <string name="new_workout_set_name">New workout set name</string>
+    <string name="create_and_add">Create and add</string>
+    <string name="error_fetching_sets">Failed to fetch workout sets</string>
+    <string name="dashboard_title">Your workout sets</string>
+    <string name="bmi_label">BMI</string>
+    <string name="logout">Logout</string>
+    <string name="add_exercise">Add exercise</string>
+    <string name="failed_fetch_sets">Failed to fetch workout sets</string>
+    <string name="failed_fetch_exercises">Failed to fetch exercises</string>
+    <string name="bmi_setup_title">Complete your data</string>
+    <string name="height_cm">Height (cm)</string>
+    <string name="weight_kg">Weight (kg)</string>
+    <string name="save">Save</string>
+    <string name="failed_fetch_bmi">Failed to fetch BMI data</string>
+    <string name="invalid_input">Please enter valid numbers</string>
+    <string name="failed_save_bmi">Failed to save data</string>
+    <string name="nav_search">Search</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_logout">Logout</string>
+    <string name="edit">Edit</string>
+    <string name="bmi_underweight">Underweight</string>
+    <string name="bmi_normal">Normal weight</string>
+    <string name="bmi_overweight">Overweight</string>
+    <string name="bmi_obese">Obese</string>
+    <string name="bmi_unknown">No data</string>
+    <string name="error_password_required">Password is required</string>
+    <string name="error_password_too_short">Password is too short (min. 6 characters)</string>
+    <string name="error_password_mismatch">Passwords do not match</string>
+    <string name="error_password_too_weak">Password is too weak</string>
 </resources>

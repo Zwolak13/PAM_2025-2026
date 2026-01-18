@@ -1,7 +1,9 @@
-package com.a160131_zwolak_dawid.components.Navigation
-
-import androidx.compose.material3.*
+import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 
@@ -16,7 +18,6 @@ fun BottomNavBar(navController: NavHostController) {
     val navBackStackEntryState = navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntryState.value?.destination?.route
 
-
     NavigationBar {
         items.forEach { item ->
             NavigationBarItem(
@@ -28,10 +29,9 @@ fun BottomNavBar(navController: NavHostController) {
                         popUpTo(navController.graph.startDestinationId) { saveState = true }
                     }
                 },
-                icon = { Icon(item.icon, contentDescription = item.label) },
-                label = { Text(item.label) }
+                icon = { Icon(item.icon, contentDescription = stringResource(item.label)) },
+                label = { Text(stringResource(item.label)) }
             )
         }
     }
 }
-

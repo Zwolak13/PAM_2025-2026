@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">160131_zwolak_Dawid</string>
-
     <string name="email">E-mail</string>
     <string name="password">Hasło</string>
     <string name="login">Zaloguj się</string>
-
     <string name="logo_first_name">Dawid</string>
     <string name="logo_last_name">Zwolak</string>
     <string name="logo_index">160131</string>
-
     <string name="login_register_button">Zarejestruj się</string>
-
     <string name="register_title">Utwórz konto</string>
     <string name="register_email_label">E-mail</string>
     <string name="register_password_label">Hasło</string>
@@ -19,47 +15,61 @@
     <string name="register_accept_terms">Akceptuję regulamin</string>
     <string name="register_button">Zarejestruj się</string>
     <string name="register_back_to_login">Powrót do logowania</string>
-
-    <string name="error_invalid_password">
-    Hasło musi zawierać co najmniej 6 znaków
-</string>
+    <string name="error_invalid_password">Hasło musi zawierać co najmniej 6 znaków</string>
     <string name="error_passwords_not_match">Hasła nie są takie same</string>
     <string name="error_terms_not_accepted">Musisz zaakceptować regulamin</string>
-
     <string name="register_success">Rejestracja zakończona pomyślnie</string>
     <string name="register_error_generic">Błąd rejestracji</string>
-
-    <!-- Firebase Auth errors -->
     <string name="error_invalid_email">Nieprawidłowy adres e-mail</string>
     <string name="error_email_in_use">Ten adres e-mail jest już używany</string>
-    <string name="error_weak_password">
-    Hasło jest zbyt słabe (minimum 6 znaków)
-</string>
+    <string name="error_weak_password">Hasło jest zbyt słabe (minimum 6 znaków)</string>
     <string name="error_wrong_password">Nieprawidłowe hasło</string>
-    <string name="error_user_not_found">
-    Nie znaleziono konta dla tego adresu e-mail
-</string>
+    <string name="error_user_not_found">Nie znaleziono konta dla tego adresu e-mail</string>
     <string name="error_user_disabled">To konto zostało zablokowane</string>
-    <string name="error_too_many_requests">
-    Zbyt wiele prób. Spróbuj ponownie później
-</string>
-    <string name="error_operation_not_allowed">
-    Ta metoda logowania jest wyłączona
-</string>
+    <string name="error_too_many_requests">Zbyt wiele prób. Spróbuj ponownie później</string>
+    <string name="error_operation_not_allowed">Ta metoda logowania jest wyłączona</string>
     <string name="error_network">Brak połączenia z internetem</string>
-    <string name="error_timeout">
-    Przekroczono limit czasu. Spróbuj ponownie
-</string>
-    <string name="error_credential_already_in_use">
-    To konto jest już połączone z inną metodą logowania
-</string>
-    <string name="error_account_exists_with_different_credential">
-    Konto z tym adresem e-mail istnieje, ale używa innej metody logowania
-</string>
+    <string name="error_timeout">Przekroczono limit czasu. Spróbuj ponownie</string><string name="error_credential_already_in_use">To konto jest już połączone z inną metodą logowania</string>
+    <string name="error_account_exists_with_different_credential">Konto z tym adresem e-mail istnieje, ale używa innej metody logowania</string>
     <string name="error_generic">Wystąpił nieoczekiwany błąd</string>
-
     <string name="no_exercises">Brak ćwiczeń</string>
     <string name="muscle_label">Mięśnie:</string>
     <string name="difficulty_label">Trudność:</string>
+    <string name="add_to_workout_set_title">Dodaj do zestawu ćwiczeń</string>
+    <string name="exercise_added">Ćwiczenie dodane do zestawu</string>
+    <string name="failed_add_exercise">Nie udało się dodać ćwiczenia</string>
+    <string name="created_and_added">Zestaw utworzony i ćwiczenie dodane</string>
+    <string name="failed_create_set">Nie udało się utworzyć zestawu</string>
+    <string name="no_workout_sets">Brak zestawów. Utwórz nowy poniżej.</string>
+    <string name="new_workout_set_name">Nazwa nowego zestawu</string>
+    <string name="create_and_add">Utwórz i dodaj</string>
+    <string name="error_fetching_sets">Błąd pobierania zestawów</string>
+    <string name="dashboard_title">Twoje zestawy ćwiczeń</string>
+    <string name="bmi_label">BMI</string>
+    <string name="logout">Wyloguj</string>
+    <string name="add_exercise">Dodaj ćwiczenie</string>
+    <string name="failed_fetch_sets">Nie udało się pobrać zestawów</string>
+    <string name="failed_fetch_exercises">Nie udało się pobrać ćwiczeń</string>
+    <string name="bmi_setup_title">Uzupełnij swoje dane</string>
+    <string name="height_cm">Wzrost (cm)</string>
+    <string name="weight_kg">Waga (kg)</string>
+    <string name="save">Zapisz</string>
+    <string name="failed_fetch_bmi">Nie udało się pobrać danych BMI</string>
+    <string name="invalid_input">Proszę wprowadzić poprawne liczby</string>
+    <string name="failed_save_bmi">Nie udało się zapisać danych</string>
+    <string name="nav_search">Szukaj</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_logout">Wyloguj</string>
+    <string name="edit">Edytuj</string>
+    <string name="bmi_underweight">Niedowaga</string>
+    <string name="bmi_normal">Prawidłowa masa ciała</string>
+    <string name="bmi_overweight">Nadwaga</string>
+    <string name="bmi_obese">Otyłość</string>
+    <string name="bmi_unknown">Brak danych</string>
+    <string name="error_password_required">Hasło jest wymagane</string>
+    <string name="error_password_too_short">Hasło jest za krótkie (min. 6 znaków)</string>
+    <string name="error_password_mismatch">Hasła nie są takie same</string>
+    <string name="error_password_too_weak">Hasło jest zbyt słabe</string>
+
 
 </resources>

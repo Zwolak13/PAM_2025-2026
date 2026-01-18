@@ -29,10 +29,10 @@ fun RegisterForm(
     var confirmPassword by remember { mutableStateOf("") }
     var acceptTerms by remember { mutableStateOf(false) }
 
-
-
     Column(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         OutlinedTextField(
@@ -76,8 +76,7 @@ fun RegisterForm(
             Checkbox(
                 checked = acceptTerms,
                 onCheckedChange = null,
-                modifier = Modifier.
-                padding(top = 8.dp, bottom = 8.dp, end = 8.dp)
+                modifier = Modifier.padding(top = 8.dp, bottom = 8.dp, end = 8.dp)
             )
 
             Text(stringResource(R.string.register_accept_terms))
@@ -87,7 +86,37 @@ fun RegisterForm(
 
         Button(
             onClick = {
+                when {
+                    email.isBlank() -> showToast(context, context.getString(R.string.error_invalid_email))
+                    password.isBlank() -> showToast(context, context.getString(R.string.error_password_required))
+                    password.length < 6 -> showToast(context, context.getString(R.string.error_password_too_short))
+                    password != confirmPassword -> showToast(context, context.getString(R.string.error_password_mismatch))
+                    !acceptTerms -> showToast(context, context.getString(R.string.error_terms_not_accepted))
+                    else -> {
+                        auth.createUserWithEmailAndPassword(email, password)
+                            .addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    auth.signOut()
+                                    onBackToLogin();
 
+                                } else {
+                                    val message = when (val e = task.exception) {
+                                        is FirebaseAuthException -> {
+                                            when (e.errorCode) {
+                                                "ERROR_EMAIL_ALREADY_IN_USE" -> context.getString(R.string.error_email_in_use)
+                                                "ERROR_INVALID_EMAIL" -> context.getString(R.string.error_invalid_email)
+                                                "ERROR_WEAK_PASSWORD" -> context.getString(R.string.error_password_too_weak)
+                                                "ERROR_NETWORK_REQUEST_FAILED" -> context.getString(R.string.error_network)
+                                                else -> context.getString(R.string.error_generic)
+                                            }
+                                        }
+                                        else -> context.getString(R.string.error_generic)
+                                    }
+                                    showToast(context, message)
+                                }
+                            }
+                    }
+                }
             },
             modifier = Modifier.fillMaxWidth()
         ) {

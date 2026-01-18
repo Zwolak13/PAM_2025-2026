@@ -7,8 +7,8 @@ data class Exercise(
     val name: Map<String, String> = mapOf(),
     val description: Map<String, String> = mapOf(),
     val equipment: Map<String, String> = mapOf(),
-    val muscleGroup: Map<String, List<String>> = mapOf(),
-    val difficulty: String = ""
+    val musclesGroup: Map<String, List<String>> = mapOf(),
+    val difficulty: Int = 0
 )
 
 fun DocumentSnapshot.toExercise(): Exercise {
@@ -17,8 +17,8 @@ fun DocumentSnapshot.toExercise(): Exercise {
         name = get("name") as? Map<String, String> ?: mapOf(),
         description = get("description") as? Map<String, String> ?: mapOf(),
         equipment = get("equipment") as? Map<String, String> ?: mapOf(),
-        muscleGroup = get("muscleGroup") as? Map<String, List<String>> ?: mapOf(),
-        difficulty = getString("difficulty") ?: ""
+        musclesGroup = get("musclesGroup") as? Map<String, List<String>> ?: mapOf(),
+        difficulty = (getLong("difficulty") ?: 0).toInt()
     )
 }
 
