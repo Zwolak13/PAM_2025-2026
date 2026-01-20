@@ -17,13 +17,8 @@ fun BmiCard(
     weight: Float,
     navController: NavController
 ) {
-    val bmiRaw = if (height > 0f) {
-        weight / ((height / 100f) * (height / 100f))
-    } else {
-        0f
-    }
-
-    val bmi = String.format("%.2f", bmiRaw).toFloat()
+    val bmiRaw = if (height > 0f) weight / ((height / 100f) * (height / 100f)) else 0f
+    val bmiDisplay = String.format("%.2f", bmiRaw)
 
     val bmiLabelRes = when {
         bmiRaw <= 0f -> R.string.bmi_unknown
@@ -47,7 +42,7 @@ fun BmiCard(
         ) {
             Column {
                 Text(
-                    text = "${stringResource(R.string.bmi_label)}: $bmi",
+                    text = "${stringResource(R.string.bmi_label)}: $bmiDisplay",
                     style = MaterialTheme.typography.titleMedium
                 )
                 Spacer(modifier = Modifier.height(4.dp))
@@ -61,8 +56,8 @@ fun BmiCard(
                 onClick = {
                     navController.navigate(
                         Routes.userBmi(
-                            height = height.toString(),
-                            weight = weight.toString()
+                            height = height.toString().replace(',', '.'),
+                            weight = weight.toString().replace(',', '.')
                         )
                     )
                 }
@@ -72,5 +67,3 @@ fun BmiCard(
         }
     }
 }
-
-
