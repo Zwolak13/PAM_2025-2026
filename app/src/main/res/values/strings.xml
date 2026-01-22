@@ -70,4 +70,6 @@
     <string name="error_password_too_short">Password is too short (min. 6 characters)</string>
     <string name="error_password_mismatch">Passwords do not match</string>
     <string name="error_password_too_weak">Password is too weak</string>
+    <string name="remove">Delete</string>
+    <string name="failed_remove_exercise">Failed to remove exercise</string>
 </resources>

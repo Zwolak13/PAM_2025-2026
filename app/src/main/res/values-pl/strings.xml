@@ -70,6 +70,7 @@
     <string name="error_password_too_short">Hasło jest za krótkie (min. 6 znaków)</string>
     <string name="error_password_mismatch">Hasła nie są takie same</string>
     <string name="error_password_too_weak">Hasło jest zbyt słabe</string>
-
+    <string name="remove">Usuń</string>
+    <string name="failed_remove_exercise">Failed to remove exercise</string>
 
 </resources>

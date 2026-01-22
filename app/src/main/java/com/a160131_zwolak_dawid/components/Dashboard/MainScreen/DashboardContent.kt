@@ -6,6 +6,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -13,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.a160131_zwolak_dawid.R
 import com.a160131_zwolak_dawid.components.Layout.showToast
+import com.a160131_zwolak_dawid.model.ExerciseList
 import com.a160131_zwolak_dawid.model.WorkoutSet
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldPath
@@ -23,14 +25,14 @@ fun DashboardContent(
     auth: FirebaseAuth,
     height: Float,
     weight: Float,
-    navController: NavController) {
+    navController: NavController
+) {
     val context = LocalContext.current
     val uid = auth.currentUser?.uid ?: return
     val lang = context.resources.configuration.locales[0].language
 
-
     var sets by remember { mutableStateOf<List<WorkoutSet>>(emptyList()) }
-    var expandedSets by remember { mutableStateOf<Map<String, List<String>>>(emptyMap()) }
+    var expandedSets by remember { mutableStateOf<Map<String, List<ExerciseList>>>(emptyMap()) }
     var loading by remember { mutableStateOf<Map<String, Boolean>>(emptyMap()) }
     var isLoadingSets by remember { mutableStateOf(true) }
 
@@ -55,9 +57,9 @@ fun DashboardContent(
             }
     }
 
-
     Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-        BmiCard(height = height, weight= weight ,navController = navController )
+
+        BmiCard(height = height, weight = weight, navController = navController)
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -69,7 +71,7 @@ fun DashboardContent(
         Spacer(modifier = Modifier.height(8.dp))
 
         if (isLoadingSets) {
-            Box(modifier = Modifier.fillMaxWidth(), contentAlignment = androidx.compose.ui.Alignment.Center) {
+            Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                 CircularProgressIndicator()
             }
         } else {
@@ -77,7 +79,7 @@ fun DashboardContent(
                 items(sets) { set ->
                     WorkoutSetBox(
                         name = set.name,
-                        exercises = expandedSets[set.id],
+                        exercises = expandedSets[set.id] ?: emptyList(),
                         isLoading = loading[set.id] == true,
                         isExpanded = expandedSets.containsKey(set.id),
                         onToggle = {
@@ -94,11 +96,13 @@ fun DashboardContent(
                                     .collection("exercises")
                                     .get()
                                     .addOnSuccessListener { snap ->
-                                        val ids = snap.documents.mapNotNull {
-                                            it.getString("exerciseRefId")
+
+                                        val refs = snap.documents.mapNotNull { doc ->
+                                            val refId = doc.getString("exerciseRefId") ?: return@mapNotNull null
+                                            doc.id to refId
                                         }
 
-                                        if (ids.isEmpty()) {
+                                        if (refs.isEmpty()) {
                                             expandedSets = expandedSets + (set.id to emptyList())
                                             loading = loading + (set.id to false)
                                             return@addOnSuccessListener
@@ -106,32 +110,46 @@ fun DashboardContent(
 
                                         FirebaseFirestore.getInstance()
                                             .collection("exercises")
-                                            .whereIn(FieldPath.documentId(), ids.take(10))
+                                            .whereIn(FieldPath.documentId(), refs.map { it.second }.take(10))
                                             .get()
                                             .addOnSuccessListener { exSnap ->
-                                                val names = exSnap.documents.map {
-                                                    it.getString("name.$lang") ?: "Unknown"
+                                                val list = exSnap.documents.mapNotNull { ex ->
+                                                    val pair = refs.firstOrNull { it.second == ex.id }
+                                                        ?: return@mapNotNull null
+
+                                                    ExerciseList(
+                                                        docId = pair.first,
+                                                        name = ex.getString("name.$lang") ?: "Unknown"
+                                                    )
                                                 }
-                                                expandedSets = expandedSets + (set.id to names)
+
+                                                expandedSets = expandedSets + (set.id to list)
                                                 loading = loading + (set.id to false)
                                             }
-                                            .addOnFailureListener {
-                                                loading = loading + (set.id to false)
-                                                showToast(
-                                                    context,
-                                                    context.getString(R.string.failed_fetch_exercises)
-                                                )
-                                            }
-                                    }
-                                    .addOnFailureListener {
-                                        loading = loading + (set.id to false)
-                                        showToast(
-                                            context,
-                                            context.getString(R.string.failed_fetch_exercises)
-                                        )
                                     }
                             }
                         },
+                        onRemoveExercise = { exercise ->
+                            FirebaseFirestore.getInstance()
+                                .collection("users")
+                                .document(uid)
+                                .collection("workoutSets")
+                                .document(set.id)
+                                .collection("exercises")
+                                .document(exercise.docId)
+                                .delete()
+                                .addOnSuccessListener {
+                                    expandedSets = expandedSets.toMutableMap().apply {
+                                        this[set.id] = this[set.id]!!.filter { it.docId != exercise.docId }
+                                    }
+                                }
+                                .addOnFailureListener {
+                                    showToast(
+                                        context,
+                                        context.getString(R.string.failed_remove_exercise)
+                                    )
+                                }
+                        }
                     )
                 }
             }
